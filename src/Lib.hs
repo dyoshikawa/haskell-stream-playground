@@ -1,18 +1,13 @@
 module Lib
-    ( someFunc
+    ( streamCopy
     ) where
 
 import           Conduit
+import           Network.AWS.S3.StreamingUpload
 
-someFunc :: IO ()
-someFunc = do
-    -- Pure operations: summing numbers.
-    -- print $ runConduitPure $ yieldMany [1..10] .| sumC
-
-    -- Exception safe file access: copy a file.
+streamCopy :: IO ()
+streamCopy = do
     writeFile "input.txt" "This is a test." -- create the source file
     runConduitRes $ sourceFileBS "input.txt" .| sinkFile "output.txt" -- actual copying
-    -- readFile "output.txt" >>= putStrLn -- prove that it worked
 
-    -- Perform transformations.
-    -- print $ runConduitPure $ yieldMany [1..10] .| mapC (+ 1) .| sinkList
+
